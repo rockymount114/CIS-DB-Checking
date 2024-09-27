@@ -1,0 +1,170 @@
+{% load static %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>CIS Database compare</title>
+
+
+<div class="container"> 
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="width: 18rem;">
+                {% comment %} <img class="card-img-top" src="..." alt="Card image cap"> {% endcomment %}
+                <div class="card-body">
+                    <h5 class="card-title">CIS PROD User Number</h5>
+                    <p class="card-text">{{sys010_prods.0.0}}</p>          
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card pink-background" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">CIS TEST User Number</h5>
+                    <p class="card-text">{{sys010_tests.0.0}}</p>          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h2>SYS001 CIS Version Control</h1>
+<table class='table tb_sys001'>
+    <thead class='thead-dark'>
+        <tr>            
+            <th>System ID</th>
+            <th>Data Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for prod in sys001_prods %}
+
+        <tr>
+            <td>{{ prod.1 }}</td>
+            <td>{{ prod.0 }}</td>
+            
+        </tr>
+        {% endfor %}
+        
+
+        {% for test in sys001_tests %}
+
+        <tr>
+            <td>{{ test.1 }}</td>
+            <td>{{ test.0 }}</td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>BIF000 CIS Infinity Control</h2>
+
+    <table class='table tb_bif000'>
+        <thead class='thead-dark'>
+            <tr>
+                <th>Attachments</th>
+                <th>Letters</th>
+                <th>BillImages</th>
+                <th>Help Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for prod in bif000_prods %}
+    
+            <tr>
+                <td>{{ prod.0 }}</td>
+                <td>{{ prod.1 }}</td>
+                <td>{{ prod.2 }}</td>
+                <td>{{ prod.3 }}</td>
+            </tr>
+            {% endfor %}
+            
+    
+            {% for test in bif000_tests %}
+    
+            <tr>
+                <td>{{ test.0 }}</td>
+                <td>{{ test.1 }}</td>
+                <td>{{ test.2 }}</td>
+                <td>{{ test.3 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <h2>SYS021 Accounting/OCR Control</h2>
+
+    <table class='table tb_sys021'>
+        <thead class='thead-dark'>
+            <tr>
+                <th>Link Type</th>
+                <th>File Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for prod in sys021_prods %}    
+            <tr>
+                <td>{{ prod.0 }}</td>  
+                <td>{{ prod.1 }}</td> 
+            </tr>
+            {% endfor %}
+            
+    
+            {% for test in sys021_tests %}    
+            <tr>
+                <td>{{ test.0 }}</td>
+                <td>{{ test.1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   
+
+
+   <h2>EBP Settings</h2>
+
+    <table class='table tb_sys021'>
+        <thead class='thead-dark'>
+            <tr>
+                <th>Link Type</th>
+                <th>File Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for prod in itr_prods %} 
+            <tr>
+                <td>{{ prod.0 }}</td>  
+                <td>{{ prod.1|slice:"24:" }}</td>  
+              
+            </tr>
+          
+            {% endfor %}
+            <tr class="spacer">
+                <td colspan="2" style="height: 10px;"> Below data is from TEST System</td>
+            </tr>
+           
+            {% for test in itr_tests %} 
+            <tr>
+                <td>{{ test.0 }}</td>  
+                <td>{{ test.1|slice:"24:" }}</td>  
+              
+            </tr>
+          
+            {% endfor %}
+        </tbody>
+    </table>
