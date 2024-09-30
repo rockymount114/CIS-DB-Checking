@@ -17,12 +17,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
+   
 
 INSTALLED_APPS = [
-    'test_without_migrations',
-    
+
     # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,7 +32,12 @@ INSTALLED_APPS = [
     'webapp',
 ]
 
-TEST_WITHOUT_MIGRATIONS_COMMAND = 'django_nose.management.commands.test.Command'
+MIGRATION_MODULES = {
+    'webapp': None,
+    'auth': None,
+    'contenttypes': None,
+    'sessions': None,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
