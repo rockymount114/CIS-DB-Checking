@@ -24,6 +24,9 @@ def index(request):
         prod_cursor.execute(f"SELECT  COUNT(*) users FROM CIS4PROD.ADVANCED.SYS010")
         sys010_prod_data = prod_cursor.fetchall()
         
+        prod_cursor.execute(f"SELECT  COUNT(*) users FROM CIS4PROD.ADVANCED.SYS010 WHERE L_DISABLED = 0")
+        num_users_prod = prod_cursor.fetchall()
+        
         prod_cursor.execute(f"SELECT C_CODE, SUBSTRING(C_CONFIGURATION, CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION), ABS(CHARINDEX('</FileName>', C_CONFIGURATION) - CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION))) AS URL FROM CIS4PROD.ADVANCED.ITR028 WHERE C_CONFIGURATION LIKE '%CIS4%'")
         itr_prod_data = prod_cursor.fetchall()
 
@@ -46,6 +49,9 @@ def index(request):
         test_cursor.execute(f"SELECT  COUNT(*) users FROM CIS4TEST.ADVANCED.SYS010")
         sys010_test_data = test_cursor.fetchall()
         
+        test_cursor.execute(f"SELECT  COUNT(*) users FROM CIS4TEST.ADVANCED.SYS010 WHERE L_DISABLED = 0")
+        num_users_test = test_cursor.fetchall()
+        
         test_cursor.execute(f"SELECT C_CODE, SUBSTRING(C_CONFIGURATION, CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION), ABS(CHARINDEX('</FileName>', C_CONFIGURATION) - CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION))) AS URL FROM CIS4TEST.ADVANCED.ITR028 WHERE C_CONFIGURATION LIKE '%CIS4%'")
         itr_test_data = test_cursor.fetchall()
      
@@ -64,4 +70,6 @@ def index(request):
                       'sys010_tests': sys010_test_data,
                       'itr_prods': itr_prod_data,
                       'itr_tests': itr_test_data,
+                      'num_users_prod': num_users_prod,
+                      'num_users_test': num_users_test,
                   })                   

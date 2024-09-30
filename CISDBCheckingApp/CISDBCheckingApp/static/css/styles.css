@@ -32,6 +32,10 @@ body{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: 1em;
+}
+.tb_thead{
+    background-color: rgb(27, 27, 228);
 }
 
 .pink-background{
@@ -40,4 +44,8 @@ body{
 
 .tb_bif000{
     background-color: hsl(0, 63%, 72%);
+}
+
+.td_test{  
+    background-color: hsl(0, 4%, 86%);
 }
