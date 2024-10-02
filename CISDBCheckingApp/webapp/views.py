@@ -8,6 +8,7 @@ import re
 
 from django.shortcuts import render
 from django.db import connections
+from django.views import View
 
 def index(request):
     # Use the default connection for production data
@@ -29,6 +30,9 @@ def index(request):
         
         prod_cursor.execute(f"SELECT C_CODE, SUBSTRING(C_CONFIGURATION, CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION), ABS(CHARINDEX('</FileName>', C_CONFIGURATION) - CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION))) AS URL FROM CIS4PROD.ADVANCED.ITR028 WHERE C_CONFIGURATION LIKE '%CIS4%'")
         itr_prod_data = prod_cursor.fetchall()
+        
+        prod_cursor.execute(f"SELECT COUNT(1) from CIS4PROD.ADVANCED.SYS002")
+        current_prod_login_users = prod_cursor.fetchall()
 
 
         
@@ -54,6 +58,9 @@ def index(request):
         
         test_cursor.execute(f"SELECT C_CODE, SUBSTRING(C_CONFIGURATION, CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION), ABS(CHARINDEX('</FileName>', C_CONFIGURATION) - CHARINDEX('<FileName Type=\"Script\">', C_CONFIGURATION))) AS URL FROM CIS4TEST.ADVANCED.ITR028 WHERE C_CONFIGURATION LIKE '%CIS4%'")
         itr_test_data = test_cursor.fetchall()
+        
+        test_cursor.execute(f"SELECT COUNT(1) from CIS4TEST.ADVANCED.SYS002")
+        current_test_login_users = test_cursor.fetchall()
      
 
         
@@ -72,4 +79,38 @@ def index(request):
                       'itr_tests': itr_test_data,
                       'num_users_prod': num_users_prod,
                       'num_users_test': num_users_test,
-                  })                   
+                      
+                      'current_prod_login_users': current_prod_login_users,
+                      'current_test_login_users': current_test_login_users,
+                  })         
+    
+    
+class LoginDetailsView(View):
+    def get(self, request):
+        with connections['default'].cursor() as prod_cursor:
+            prod_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
+            current_prod_login_users = prod_cursor.fetchall()
+            
+        # with connections['test_cis'].cursor() as test_cursor:
+        #     test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
+        #     current_test_login_users = test_cursor.fetchall()
+        
+        return render(request, 'webapp/login_details.html', {
+            'current_prod_login_users': current_prod_login_users,
+            # 'current_test_login_users': current_test_login_users,
+        })
+        
+class TESTLoginDetailsView(View):
+    def get(self, request):
+        with connections['cis_test'].cursor() as test_cursor:
+            test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
+            current_test_login_users = test_cursor.fetchall()
+            
+        # with connections['test_cis'].cursor() as test_cursor:
+        #     test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
+        #     current_test_login_users = test_cursor.fetchall()
+        
+        return render(request, 'webapp/login_details_test.html', {
+            'current_test_login_users': current_test_login_users,
+            # 'current_test_login_users': current_test_login_users,
+        })
