@@ -19,7 +19,7 @@
     </caption>
     <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
+        <th class="text-center" scope="col">#</th>
         <th scope="col">User ID</th>
         <th scope="col">Login date</th>
         <th scope="col">Station ID</th>
@@ -28,7 +28,7 @@
     <tbody>
         {% for user in current_prod_login_users %} 
       <tr>
-        <td>{{ forloop.counter }}</td>
+        <td class="text-center">{{ forloop.counter }}</td>
         <th scope="row">{{user.0}}</th>
         <td>{{user.1}}</td>
         <td class="text-left">{{user.2}}</td>

@@ -91,10 +91,7 @@ class LoginDetailsView(View):
             prod_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
             current_prod_login_users = prod_cursor.fetchall()
             
-        # with connections['test_cis'].cursor() as test_cursor:
-        #     test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
-        #     current_test_login_users = test_cursor.fetchall()
-        
+
         return render(request, 'webapp/login_details.html', {
             'current_prod_login_users': current_prod_login_users,
             # 'current_test_login_users': current_test_login_users,
@@ -106,10 +103,7 @@ class TESTLoginDetailsView(View):
             test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
             current_test_login_users = test_cursor.fetchall()
             
-        # with connections['test_cis'].cursor() as test_cursor:
-        #     test_cursor.execute(f"SELECT C_USERID, T_LOGIN, C_STATIONID from ADVANCED.SYS002 ORDER BY C_USERID, T_LOGIN DESC")
-        #     current_test_login_users = test_cursor.fetchall()
-        
+
         return render(request, 'webapp/login_details_test.html', {
             'current_test_login_users': current_test_login_users,
             # 'current_test_login_users': current_test_login_users,

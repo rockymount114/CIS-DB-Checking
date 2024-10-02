@@ -45,7 +45,7 @@
     </div>
 
 
-
+<hr>
 <h3>SYS001 CIS Version Control</h3>
 <table class='table tb_sys001'>
     <thead class='thead-dark'>
@@ -60,7 +60,7 @@
 
         <tr>
             <td>{{ prod.1 }}</td>
-            <td>{{ prod.0 }}</td>
+            <td class="text-left">{{ prod.0 }}</td>
             
         </tr>
         {% endfor %}
@@ -70,7 +70,7 @@
 
         <tr>
             <td>{{ test.1 }}</td>
-            <td>{{ test.0 }}</td>
+            <td class="text-left">{{ test.0 }}</td>
             
         </tr>
         {% endfor %}
@@ -96,7 +96,7 @@
                 <td>{{ prod.0 }}</td>
                 <td>{{ prod.1 }}</td>
                 <td>{{ prod.2 }}</td>
-                <td>{{ prod.3 }}</td>
+                <td class="text-left">{{ prod.3 }}</td>
             </tr>
             {% endfor %}
             
@@ -107,7 +107,7 @@
                 <td>{{ test.0 }}</td>
                 <td>{{ test.1 }}</td>
                 <td>{{ test.2 }}</td>
-                <td>{{ test.3 }}</td>
+                <td class="text-left">{{ test.3 }}</td>
             </tr>
             {% endfor %}
         </tbody>
