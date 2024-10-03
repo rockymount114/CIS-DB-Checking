@@ -35,7 +35,11 @@ body{
   font-size: 1em;
 }
 .tb_thead{
-    background-color: rgb(27, 27, 228);
+    background-color: rgb(74, 190, 245);
+}
+
+.prod-background{
+  background-color: rgb(155, 193, 252);
 }
 
 .pink-background{
